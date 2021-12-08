@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     content: {
-        backgroundColor: 'dodgerblue',
+        backgroundColor: 'white',
         flex: 1,
     }
 })
