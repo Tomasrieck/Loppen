@@ -2,26 +2,21 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
+  Text,
   Button,
   View,
   Image,
   SafeAreaView,
-  useColorScheme,
   TouchableWithoutFeedback,
-  ScrollView,
+  useColorScheme,
 } from "react-native";
 
-import ProductItem from "/Users/tomasrieck/Dev/GitHub/Loppen/backend/ProductItem.js";
-
-let module = require("/Users/tomasrieck/Dev/GitHub/Loppen/backend/products.js");
-
-const Home = ({ navigation }) => {
+const Create = ({ navigation }) => {
   const colorScheme = useColorScheme();
 
   // const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightTheme : styles.darkTheme;
-
   return (
     <View style={[styles.background, themeContainerStyle]}>
       <SafeAreaView style={[styles.bar, { top: 0 }]}>
@@ -42,25 +37,18 @@ const Home = ({ navigation }) => {
           />
         </TouchableWithoutFeedback>
       </SafeAreaView>
-
-      <ScrollView style={styles.scroll}>
-        <ProductItem item={module.products[0]} />
-        <ProductItem item={module.products[1]} />
-        <ProductItem item={module.products[2]} />
-        <ProductItem item={module.products[3]} />
-      </ScrollView>
-
+      <View style={styles.content}></View>
       <SafeAreaView style={[styles.bar, { bottom: 0 }]}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate("Create")}>
-          <Image
-            style={[styles.icons, themeContainerStyle]}
-            source={require("../assets/createIcon.png")}
-          />
-        </TouchableWithoutFeedback>
         <Image
           style={[styles.icons, themeContainerStyle]}
-          source={require("../assets/homeIcon.png")}
+          source={require("../assets/createIcon.png")}
         />
+        <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
+          <Image
+            style={[styles.icons, themeContainerStyle]}
+            source={require("../assets/homeIcon.png")}
+          />
+        </TouchableWithoutFeedback>
         <Image
           style={[styles.icons, themeContainerStyle]}
           source={require("../assets/menuIcon.png")}
@@ -96,10 +84,10 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15,
   },
-  scroll: {
+  content: {
     backgroundColor: "white",
     flex: 1,
   },
 });
 
-export default Home;
+export default Create;
