@@ -2,7 +2,6 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
-  Button,
   View,
   Image,
   SafeAreaView,
@@ -11,37 +10,16 @@ import {
   ScrollView,
 } from "react-native";
 
-import ProductItem from "/Users/tomasrieck/Dev/GitHub/Loppen/backend/ProductItem.js";
+import TopBar from "../content/TopBar.js";
+import BottomBar from "../content/BottomBar.js";
+import ProductItem from "../content/ProductItem.js";
 
 let module = require("/Users/tomasrieck/Dev/GitHub/Loppen/backend/products.js");
 
-const Home = ({ navigation }) => {
-  const colorScheme = useColorScheme();
-
-  // const themeTextStyle = colorScheme === 'light' ? styles.lightThemeText : styles.darkThemeText;
-  const themeContainerStyle =
-    colorScheme === "light" ? styles.lightTheme : styles.darkTheme;
-
+const Home = (props) => {
   return (
-    <View style={[styles.background, themeContainerStyle]}>
-      <SafeAreaView style={[styles.bar, { top: 0 }]}>
-        <Image
-          style={[styles.icons, themeContainerStyle]}
-          source={require("../assets/homeIcon.png")}
-        />
-        <Image
-          style={[styles.icons, themeContainerStyle]}
-          source={require("../assets/homeIcon.png")}
-        />
-        <TouchableWithoutFeedback
-          onPress={() => navigation.navigate("Settings")}
-        >
-          <Image
-            style={[styles.icons, themeContainerStyle]}
-            source={require("../assets/settingsIcon.png")}
-          />
-        </TouchableWithoutFeedback>
-      </SafeAreaView>
+    <View style={styles.background}>
+      <TopBar {...props} />
 
       <ScrollView style={styles.scroll}>
         <ProductItem item={module.products[0]} />
@@ -50,22 +28,7 @@ const Home = ({ navigation }) => {
         <ProductItem item={module.products[3]} />
       </ScrollView>
 
-      <SafeAreaView style={[styles.bar, { bottom: 0 }]}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate("Create")}>
-          <Image
-            style={[styles.icons, themeContainerStyle]}
-            source={require("../assets/createIcon.png")}
-          />
-        </TouchableWithoutFeedback>
-        <Image
-          style={[styles.icons, themeContainerStyle]}
-          source={require("../assets/homeIcon.png")}
-        />
-        <Image
-          style={[styles.icons, themeContainerStyle]}
-          source={require("../assets/menuIcon.png")}
-        />
-      </SafeAreaView>
+      <BottomBar {...props} />
       <StatusBar style="auto" />
     </View>
   );
@@ -74,27 +37,6 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-  },
-  lightTheme: {
-    backgroundColor: "white",
-    tintColor: "black",
-  },
-  darkTheme: {
-    backgroundColor: "black",
-    tintColor: "white",
-  },
-  bar: {
-    flex: 0.1,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    width: "100%",
-  },
-  icons: {
-    width: 35,
-    height: 35,
-    marginTop: 15,
-    marginBottom: 15,
   },
   scroll: {
     backgroundColor: "white",
