@@ -1,16 +1,9 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  SafeAreaView,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import TopBar from "../content/TopBar.js";
-import BottomBar from "../content/BottomBar.js";
+import TopBar from "../modules/TopBar.js";
+import BottomBar from "../modules/BottomBar.js";
 
 const Settings = (props) => {
   return (

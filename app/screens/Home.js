@@ -1,20 +1,12 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  View,
-  Image,
-  SafeAreaView,
-  useColorScheme,
-  TouchableWithoutFeedback,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 
-import TopBar from "../content/TopBar.js";
-import BottomBar from "../content/BottomBar.js";
-import ProductItem from "../content/ProductItem.js";
+import TopBar from "../modules/TopBar.js";
+import BottomBar from "../modules/BottomBar.js";
+import ProductItem from "../modules/ProductItem.js";
 
-let module = require("/Users/tomasrieck/Dev/GitHub/Loppen/backend/products.js");
+let module = require("../../backend/products");
 
 const Home = (props) => {
   return (
