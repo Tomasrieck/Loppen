@@ -8,6 +8,7 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context"
 import * as ImagePicker from "expo-image-picker";
 import * as Firebase from "../../backend/firebase";
 // import Constants from "expo-constants";
@@ -81,7 +82,7 @@ const Create = (props) => {
   };
 
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
       <TopBar {...props} />
       <View style={styles.content}>
         <Button
@@ -110,7 +111,7 @@ const Create = (props) => {
       </View>
       <BottomBar {...props} />
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 };
 
