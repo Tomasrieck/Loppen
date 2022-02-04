@@ -1,32 +1,62 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 
-const ProductItem = ({ item }) => {
+import db from "../../backend/firebaseConfig";
+
+const ProductItem = () => {
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    db.collection("users")
+      .get()
+      .then((result) => result.docs)
+      .then((docs) =>
+        docs.map((doc) => ({
+          id: doc.id,
+          username: doc.data().username,
+          userImage: doc.data().userImage,
+          itemImage: doc.data().itemImage,
+          price: doc.data().price,
+          distance: doc.data().distance,
+          description: doc.data().description,
+          title: doc.data().title,
+        }))
+      )
+      .then((users) => setUsers(users));
+  });
+
   return (
     <View style={styles.content}>
-      <View style={styles.item}>
-        <View style={styles.upperTag}>
+      {users?.map((users) => (
+        <View style={styles.item}>
+          <View style={styles.upperTag}>
+            <Image
+              style={styles.userImage}
+              source={{
+                uri: users.userImage,
+              }}
+            />
+            <Text
+              key={users.id == "E82QisKNMHRizAkENfHK"}
+              style={styles.username}
+            >
+              {users.username}
+            </Text>
+          </View>
           <Image
-            style={styles.userImage}
+            style={styles.itemImage}
             source={{
-              uri: item.userImage,
+              uri: users.itemImage,
             }}
           />
-          <Text style={styles.userName}>{item.userName}</Text>
+          <Text style={styles.itemKmAway}>{users.distance} km</Text>
+          <View style={styles.underTag}>
+            <Text style={styles.itemTitle}>{users.title}, </Text>
+            <Text style={styles.itemDesc}>{users.description}</Text>
+            <Text style={styles.itemPrice}>{users.price} ,-</Text>
+          </View>
         </View>
-        <Image
-          style={styles.itemImage}
-          source={{
-            uri: item.itemImage,
-          }}
-        />
-        <Text style={styles.itemKmAway}>{item.kmAway} km</Text>
-        <View style={styles.underTag}>
-          <Text style={styles.itemTitle}>{item.title}, </Text>
-          <Text style={styles.itemDesc}>{item.description}</Text>
-          <Text style={styles.itemPrice}>{item.price} ,-</Text>
-        </View>
-      </View>
+      ))}
     </View>
   );
 };
@@ -50,7 +80,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 15,
   },
-  userName: {
+  username: {
     marginLeft: 10,
     fontSize: 20,
   },

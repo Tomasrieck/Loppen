@@ -1,5 +1,3 @@
-import image from "../backend/products.js";
-
 export const products = [
   {
     id: "1",
@@ -8,7 +6,8 @@ export const products = [
     userName: "Tomas Rieck",
     title: "Hund",
     description: "Lille hund med store øjne",
-    itemImage: image,
+    itemImage:
+      "https://firebasestorage.googleapis.com/v0/b/loppenappen.appspot.com/o/2022-01-13T12%3A02%3A41.456Z?alt=media&token=193f07b6-b1c4-40e3-bd38-2e075b7d4679",
     kmAway: 1.2,
     price: 19.95,
   },

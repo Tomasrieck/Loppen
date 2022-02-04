@@ -7,17 +7,32 @@ import {
   Platform,
   Image,
   ActivityIndicator,
+  Text,
+  TextInput,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import * as Firebase from "../../backend/firebase";
-// import Constants from "expo-constants";
+import * as Firebase from "firebase";
+import Constants from "expo-constants";
 
+import db from "../../backend/firebaseConfig";
 import TopBar from "../modules/TopBar";
 import BottomBar from "../modules/BottomBar";
 
 const Create = (props) => {
+  if (!Firebase.apps.length) {
+    Firebase.initializeApp(firebaseConfig);
+  }
+
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
+
+  const [username, onChangeUsername] = React.useState(null);
+  const [userImage, onChangeUserImage] = React.useState(null);
+  const [itemImage, onChangeItemImage] = React.useState(null);
+  const [description, onChangeDescription] = React.useState(null);
+  const [price, onChangePrice] = React.useState(null);
+  const [title, onChangeTitle] = React.useState(null);
+  const [distance, onChangeDistance] = React.useState(null);
 
   useEffect(async () => {
     if (Platform.OS !== "web") {
@@ -45,12 +60,12 @@ const Create = (props) => {
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = function () {
-        resolve(xhr.respose);
+        resolve(xhr.response);
       };
       xhr.onerror = function () {
         reject(new TypeError("Network request failed"));
       };
-      xhr.resposeType = "blob";
+      xhr.responseType = "blob";
       xhr.open("GET", image, true);
       xhr.send(null);
     });
@@ -80,6 +95,18 @@ const Create = (props) => {
     );
   };
 
+  const uploadData = async () => {
+    db.collection("users").add({
+      username: username,
+      userImage: userImage,
+      itemImage: itemImage,
+      description: description,
+      price: price,
+      title: title,
+      distance: distance,
+    });
+  };
+
   return (
     <View style={styles.background}>
       <TopBar {...props} />
@@ -107,6 +134,37 @@ const Create = (props) => {
         ) : (
           <ActivityIndicator size="large" color="black" />
         )}
+        <TextInput
+          onChangeText={onChangeUsername}
+          value={username}
+          placeholder="Navn"
+          keyboardType="numeric"
+        />
+        <TextInput
+          onChangeText={onChangeDescription}
+          value={description}
+          placeholder="Beskrivelse"
+          keyboardType="numeric"
+        />
+        <TextInput
+          onChangeText={onChangePrice}
+          value={price}
+          placeholder="Pris"
+          keyboardType="numeric"
+        />
+        <TextInput
+          onChangeText={onChangeDistance}
+          value={distance}
+          placeholder="Placering"
+          keyboardType="numeric"
+        />
+        <TextInput
+          onChangeText={onChangeTitle}
+          value={title}
+          placeholder="Titel"
+          keyboardType="numeric"
+        />
+        <Button style={styles.button} title={"Goddaw"} onPress={uploadData} />
       </View>
       <BottomBar {...props} />
       <StatusBar style="auto" />
