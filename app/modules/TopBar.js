@@ -16,12 +16,8 @@ const TopBar = (props) => {
   return (
     <SafeAreaView style={[styles.bar, themeContainerStyle, { top: 0 }]}>
       <Image
-        style={[styles.icons, themeContainerStyle]}
-        source={require("../assets/homeIcon.png")}
-      />
-      <Image
-        style={[styles.icons, themeContainerStyle]}
-        source={require("../assets/homeIcon.png")}
+        style={[styles.logo, themeContainerStyle]}
+        source={require("../assets/logo.png")}
       />
       <TouchableWithoutFeedback
         onPress={() => props.navigation.navigate("Settings")}
@@ -44,16 +40,22 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     tintColor: "white",
   },
+  logo: {
+    width: 85,
+    height: 35,
+    marginLeft: 30,
+  },
   icons: {
     width: 35,
     height: 35,
+    marginRight: 30,
     marginTop: 15,
     marginBottom: 15,
   },
   bar: {
     flex: 0.1,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
   },

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Image, Text, ScrollView } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context"
 
 import TopBar from "../modules/TopBar.js";
 import BottomBar from "../modules/BottomBar.js";
@@ -24,7 +25,7 @@ const Home = (props) => {
   });
 
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
       <TopBar {...props} />
 
       <ScrollView style={styles.scroll}>
@@ -35,7 +36,7 @@ const Home = (props) => {
 
       <BottomBar {...props} />
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 };
 
