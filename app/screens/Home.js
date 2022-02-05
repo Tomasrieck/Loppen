@@ -1,37 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context"
+import { StyleSheet, ScrollView, useColorScheme } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import TopBar from "../modules/TopBar.js";
 import BottomBar from "../modules/BottomBar.js";
 import ProductItem from "../modules/ProductItem.js";
 
-import db from "../../backend/firebaseConfig";
-
 const Home = (props) => {
   const [users, setUsers] = useState(null);
 
-  useEffect((props) => {
-    db.collection("users")
-      .get()
-      .then((result) => result.docs)
-      .then((docs) =>
-        docs.map((doc) => ({
-          id: doc.id,
-        }))
-      )
-      .then((users) => setUsers(users));
-  });
+  const colorScheme = useColorScheme();
+  const themeContainerStyle =
+    colorScheme === "light" ? styles.lightTheme : styles.darkTheme;
 
   return (
-    <SafeAreaView style={styles.background}>
+    <SafeAreaView style={[styles.background, themeContainerStyle]}>
       <TopBar {...props} />
 
       <ScrollView style={styles.scroll}>
-        {users?.map((users) => (
-          <ProductItem />
-        ))}
+        <ProductItem id={"E82QisKNMHRizAkENfHK"} />
       </ScrollView>
 
       <BottomBar {...props} />
@@ -41,6 +29,14 @@ const Home = (props) => {
 };
 
 const styles = StyleSheet.create({
+  lightTheme: {
+    backgroundColor: "white",
+    tintColor: "black",
+  },
+  darkTheme: {
+    backgroundColor: "black",
+    tintColor: "white",
+  },
   background: {
     flex: 1,
   },

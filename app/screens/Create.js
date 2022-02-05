@@ -9,8 +9,9 @@ import {
   ActivityIndicator,
   Text,
   TextInput,
+  useColorScheme,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context"
+import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 import * as Firebase from "firebase";
 import Constants from "expo-constants";
@@ -20,6 +21,10 @@ import TopBar from "../modules/TopBar";
 import BottomBar from "../modules/BottomBar";
 
 const Create = (props) => {
+  const colorScheme = useColorScheme();
+  const themeContainerStyle =
+    colorScheme === "light" ? styles.lightTheme : styles.darkTheme;
+
   if (!Firebase.apps.length) {
     Firebase.initializeApp(firebaseConfig);
   }
@@ -100,7 +105,7 @@ const Create = (props) => {
     db.collection("users").add({
       username: username,
       userImage: userImage,
-      itemImage: itemImage,
+      itemImage: image,
       description: description,
       price: price,
       title: title,
@@ -109,7 +114,7 @@ const Create = (props) => {
   };
 
   return (
-    <SafeAreaView style={styles.background}>
+    <SafeAreaView style={[styles.background, themeContainerStyle]}>
       <TopBar {...props} />
       <View style={styles.content}>
         <Button
@@ -165,7 +170,7 @@ const Create = (props) => {
           placeholder="Titel"
           keyboardType="numeric"
         />
-        <Button style={styles.button} title={"Goddaw"} onPress={uploadData} />
+        <Button style={styles.button} title={"Send"} onPress={uploadData} />
       </View>
       <BottomBar {...props} />
       <StatusBar style="auto" />
@@ -174,6 +179,14 @@ const Create = (props) => {
 };
 
 const styles = StyleSheet.create({
+  lightTheme: {
+    backgroundColor: "white",
+    tintColor: "black",
+  },
+  darkTheme: {
+    backgroundColor: "black",
+    tintColor: "white",
+  },
   background: {
     flex: 1,
     backgroundColor: "white",

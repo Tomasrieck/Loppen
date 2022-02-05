@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 
-import db from "../../backend/firebaseConfig";
+import * as fb from "../../backend/firebaseConfig";
 
-const ProductItem = () => {
+const ProductItem = (props) => {
   const [users, setUsers] = useState(null);
 
   useEffect(() => {
-    db.collection("users")
+    fb.db
+      .collection("users")
       .get()
       .then((result) => result.docs)
       .then((docs) =>
@@ -36,12 +37,7 @@ const ProductItem = () => {
                 uri: users.userImage,
               }}
             />
-            <Text
-              key={users.id == "E82QisKNMHRizAkENfHK"}
-              style={styles.username}
-            >
-              {users.username}
-            </Text>
+            <Text style={styles.username}>{users.username}</Text>
           </View>
           <Image
             style={styles.itemImage}
