@@ -34,11 +34,13 @@ const Login = (props) => {
 
   return (
     <SafeAreaView style={[styles.background, themeContainerStyle]}>
-      <KeyboardAvoidingView style={styles.container}>
+      <View style={styles.logo}>
         <Image
-          style={[styles.logo, themeContainerStyle]}
+          style={[{width: 150, height: 70,}, themeContainerStyle]}
           source={require("../assets/logo.png")}
         />
+      </View>
+      <KeyboardAvoidingView style={styles.container}>
         <View style={styles.inputContainer}>
           <TextInput
             placeholder="Email"
@@ -54,11 +56,11 @@ const Login = (props) => {
           />
         </View>
 
-        <View>
-          <TouchableOpacity onPress={() => props.navigation.navigate("Home")}>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("Home")}>
             <Text>Login</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleSignUp}>
+          <TouchableOpacity style={styles.button} onPress={handleSignUp}>
             <Text>Register</Text>
           </TouchableOpacity>
         </View>
@@ -80,26 +82,42 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
+    flexDirection: "column",
   },
   logo: {
-    width: 150,
-    height: 70,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "space-evenly",
   },
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
   },
   inputContainer: {
     width: "80%",
   },
   input: {
+    borderColor: "gray",
     backgroundColor: "white",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
+    borderWidth: 1,
     marginTop: 5,
   },
+  buttonContainer: {
+    backgroundColor: "white",
+    width: "50%",
+    top: 10,
+  },
+  button: {
+    justifyContent: "space-between",
+    backgroundColor: "rgb(82, 183, 255)",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+  }
 });
 
 export default Login;
