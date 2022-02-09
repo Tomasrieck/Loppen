@@ -3,12 +3,13 @@ import { StyleSheet, View, Image, Text } from "react-native";
 
 import * as fb from "../../backend/firebaseConfig";
 
-const ProductItem = (props) => {
-  const [users, setUsers] = useState(null);
+const UserItems = (props) => {
+  const [userInfo, setUserInfo] = useState(null);
+  const [userItems, setUserItems] = useState(null);
 
   useEffect(() => {
     fb.db
-      .collection("users")
+      .collection("users/" + props.userId + "/userInfo")
       .get()
       .then((result) => result.docs)
       .then((docs) =>
@@ -16,43 +17,63 @@ const ProductItem = (props) => {
           id: doc.id,
           username: doc.data().username,
           userImage: doc.data().userImage,
+          userAdress: doc.data().userAdress,
+        }))
+      )
+      .then((userInfo) => setUserInfo(userInfo));
+
+    fb.db
+      .collection("users/" + props.userId + "/items")
+      .get()
+      .then((result) => result.docs)
+      .then((docs) =>
+        docs.map((doc) => ({
+          id: doc.id,
           itemImage: doc.data().itemImage,
           price: doc.data().price,
-          distance: doc.data().distance,
           description: doc.data().description,
           title: doc.data().title,
         }))
       )
-      .then((users) => setUsers(users));
+      .then((userItems) => setUserItems(userItems));
   });
 
   return (
     <View style={styles.content}>
-      {users?.map((users) => (
-        <View style={styles.item}>
-          <View style={styles.upperTag}>
+      <View style={styles.item}>
+        {userInfo?.map((userInfo, upperTagId) => (
+          <View key={upperTagId} style={styles.upperTag}>
             <Image
               style={styles.userImage}
               source={{
-                uri: users.userImage,
+                uri: userInfo.userImage,
               }}
             />
-            <Text style={styles.username}>{users.username}</Text>
+            <Text style={styles.username}>{userInfo.username}</Text>
           </View>
+        ))}
+        {userItems?.map((userItems, itemImageId) => (
           <Image
+            key={itemImageId}
             style={styles.itemImage}
             source={{
-              uri: users.itemImage,
+              uri: userItems.itemImage,
             }}
           />
-          <Text style={styles.itemKmAway}>{users.distance} km</Text>
-          <View style={styles.underTag}>
-            <Text style={styles.itemTitle}>{users.title}, </Text>
-            <Text style={styles.itemDesc}>{users.description}</Text>
-            <Text style={styles.itemPrice}>{users.price} ,-</Text>
+        ))}
+        {userInfo?.map((userInfo, userAdressId) => (
+          <Text key={userAdressId} style={styles.itemKmAway}>
+            {userInfo.userAdress} km
+          </Text>
+        ))}
+        {userItems?.map((userItems, underTagId) => (
+          <View key={underTagId} style={styles.underTag}>
+            <Text style={styles.itemTitle}>{userItems.title}, </Text>
+            <Text style={styles.itemDesc}>{userItems.description}</Text>
+            <Text style={styles.itemPrice}>{userItems.price} ,-</Text>
           </View>
-        </View>
-      ))}
+        ))}
+      </View>
     </View>
   );
 };
@@ -109,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductItem;
+export default UserItems;

@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, ScrollView, useColorScheme } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import TopBar from "../modules/TopBar.js";
 import BottomBar from "../modules/BottomBar.js";
-import ProductItem from "../modules/ProductItem.js";
+import UserItems from "../modules/UserItems.js";
 
 const Home = (props) => {
-  const [users, setUsers] = useState(null);
-
   const colorScheme = useColorScheme();
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightTheme : styles.darkTheme;
@@ -19,7 +17,7 @@ const Home = (props) => {
       <TopBar {...props} />
 
       <ScrollView style={styles.scroll}>
-        <ProductItem id={"E82QisKNMHRizAkENfHK"} />
+        <UserItems userId={"6MotKXaQISMkP7nA4PKg"} />
       </ScrollView>
 
       <BottomBar {...props} />

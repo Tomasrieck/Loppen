@@ -14,7 +14,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 import * as Firebase from "firebase";
-import Constants from "expo-constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import db from "../../backend/firebaseConfig";
 import TopBar from "../modules/TopBar";

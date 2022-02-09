@@ -8,12 +8,13 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import * as fb from "../../backend/firebaseConfig";
 
-const Login = () => {
+const Login = (props) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
@@ -34,6 +35,10 @@ const Login = () => {
   return (
     <SafeAreaView style={[styles.background, themeContainerStyle]}>
       <KeyboardAvoidingView style={styles.container}>
+        <Image
+          style={[styles.logo, themeContainerStyle]}
+          source={require("../assets/logo.png")}
+        />
         <View style={styles.inputContainer}>
           <TextInput
             placeholder="Email"
@@ -50,6 +55,9 @@ const Login = () => {
         </View>
 
         <View>
+          <TouchableOpacity onPress={() => props.navigation.navigate("Home")}>
+            <Text>Login</Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={handleSignUp}>
             <Text>Register</Text>
           </TouchableOpacity>
@@ -72,6 +80,10 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
+  },
+  logo: {
+    width: 150,
+    height: 70,
   },
   container: {
     flex: 1,
