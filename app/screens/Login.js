@@ -36,19 +36,21 @@ const Login = (props) => {
     <SafeAreaView style={[styles.background, themeContainerStyle]}>
       <View style={styles.logo}>
         <Image
-          style={[{width: 150, height: 70,}, themeContainerStyle]}
+          style={[{ width: 150, height: 70 }, themeContainerStyle]}
           source={require("../assets/logo.png")}
         />
       </View>
       <KeyboardAvoidingView style={styles.container}>
         <View style={styles.inputContainer}>
           <TextInput
+            placeholderTextColor="gray"
             placeholder="Email"
             value={email}
             onChangeText={(text) => setEmail(text)}
             style={styles.input}
           />
           <TextInput
+            placeholderTextColor="gray"
             placeholder="Password"
             value={password}
             onChangeText={(text) => setPassword(text)}
@@ -56,12 +58,15 @@ const Login = (props) => {
           />
         </View>
 
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("Home")}>
-            <Text>Login</Text>
+        <View style={[styles.buttonContainer, themeContainerStyle]}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => props.navigation.navigate("Home")}
+          >
+            <Text style={{ color: "white" }}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-            <Text>Register</Text>
+            <Text style={{ color: "white" }}>Register</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -107,17 +112,18 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   buttonContainer: {
-    backgroundColor: "white",
     width: "50%",
     top: 10,
   },
   button: {
+    marginTop: 10,
+    alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: "rgb(82, 183, 255)",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
-  }
+  },
 });
 
 export default Login;
