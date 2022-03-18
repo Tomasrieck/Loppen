@@ -1,7 +1,6 @@
 import React from "react";
 import {
   StyleSheet,
-  View,
   Image,
   SafeAreaView,
   useColorScheme,
@@ -31,10 +30,14 @@ const BottomBar = (props) => {
           source={require("../assets/homeIcon.png")}
         />
       </TouchableWithoutFeedback>
-      <Image
-        style={[styles.icons, themeContainerStyle]}
-        source={require("../assets/menuIcon.png")}
-      />
+      <TouchableWithoutFeedback
+        onPress={() => props.navigation.navigate("MySite")}
+      >
+        <Image
+          style={[styles.icons, themeContainerStyle]}
+          source={require("../assets/profileIcon.png")}
+        />
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
@@ -9,14 +9,19 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Animated,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import * as fb from "../../backend/firebaseConfig";
 
-const Login = (props) => {
+const Register = (props) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
+  const [fullName, setFullName] = useState(null);
+  const [phone, setPhone] = useState(null);
+  const [address, setAddress] = useState(null);
 
   useEffect(() => {
     const unsubscribe = fb.auth.onAuthStateChanged((user) => {
@@ -28,18 +33,30 @@ const Login = (props) => {
     return unsubscribe;
   }, []);
 
-  const handleLogin = () => {
-    fb.auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Logged in with:", user.email);
-      })
-      .catch((error) => alert(error.message));
-  };
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
-  const goToRegister = () => {
-    props.navigation.navigate("Register");
+  const handleSignUp = () => {
+    if (password !== confirmPassword) {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      fb.auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((userCredentials) => {
+          const user = userCredentials.user;
+          console.log("Registered with:", user.email);
+          fb.db.collection("userInfo").doc(user.uid).set({
+            email: email,
+            fullName: fullName,
+            phone: phone,
+            address: address,
+          });
+        })
+        .catch((error) => alert(error.message));
+    }
   };
 
   const colorScheme = useColorScheme();
@@ -74,22 +91,61 @@ const Login = (props) => {
             secureTextEntry
             autoCorrect={false}
           />
+          <TextInput
+            placeholderTextColor="gray"
+            placeholder="Repeat password"
+            value={confirmPassword}
+            onChangeText={(text) => setConfirmPassword(text)}
+            style={styles.input}
+            secureTextEntry
+            autoCorrect={false}
+          />
+        </View>
+        <View style={[styles.inputContainer, { marginTop: 50 }]}>
+          <TextInput
+            placeholderTextColor="gray"
+            placeholder="Full name"
+            value={fullName}
+            onChangeText={(text) => setFullName(text)}
+            style={styles.input}
+            autoCorrect={false}
+          />
+          <TextInput
+            placeholderTextColor="gray"
+            placeholder="Phone"
+            value={phone}
+            onChangeText={(text) => setPhone(text)}
+            style={styles.input}
+            autoCorrect={false}
+          />
+          <TextInput
+            placeholderTextColor="gray"
+            placeholder="Address"
+            value={address}
+            onChangeText={(text) => setAddress(text)}
+            style={styles.input}
+            autoCorrect={false}
+          />
         </View>
 
         <View style={[styles.buttonContainer, themeContainerStyle]}>
           <TouchableOpacity
             style={[styles.button, { backgroundColor: "rgb(82, 183, 255)" }]}
-            onPress={handleLogin}
+            onPress={handleSignUp}
           >
-            <Text style={{ color: "white" }}>Login</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: "white" }]}
-            onPress={goToRegister}
-          >
-            <Text style={{ color: "rgb(82, 183, 255)" }}>Register</Text>
+            <Text style={{ color: "white" }}>Register</Text>
           </TouchableOpacity>
         </View>
+        <Animated.View
+          style={[
+            styles.fadingContainer,
+            {
+              opacity: fadeAnim,
+            },
+          ]}
+        >
+          <Text style={styles.fadingText}>Passwords don't match</Text>
+        </Animated.View>
       </KeyboardAvoidingView>
 
       <StatusBar style="auto" />
@@ -116,7 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   container: {
-    flex: 1,
+    flex: 1.6,
     justifyContent: "flex-start",
     alignItems: "center",
   },
@@ -146,6 +202,13 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "rgb(82, 183, 255)",
   },
+  fadingContainer: {
+    marginTop: 40,
+  },
+  fadingText: {
+    fontSize: 12,
+    color: "red",
+  },
 });
 
-export default Login;
+export default Register;

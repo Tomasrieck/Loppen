@@ -1,2 +1,4 @@
-Vector icons
-Database (SQL?)
+Mangler light vs. dark theme i 'Create'
+Algoritme der matcher postnumre i 'Home'
+Lav 'Menu' module med b.la. log ud funktion
+Forskellig 'TopBar' fra screen til screen

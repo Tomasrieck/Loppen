@@ -1,7 +1,6 @@
 import React from "react";
 import {
   StyleSheet,
-  View,
   Image,
   SafeAreaView,
   useColorScheme,
@@ -20,11 +19,11 @@ const TopBar = (props) => {
         source={require("../assets/logo.png")}
       />
       <TouchableWithoutFeedback
-        onPress={() => props.navigation.navigate("Settings")}
+        onPress={() => props.navigation.navigate("Menu")}
       >
         <Image
           style={[styles.icons, themeContainerStyle]}
-          source={require("../assets/settingsIcon.png")}
+          source={require("../assets/menuIcon.png")}
         />
       </TouchableWithoutFeedback>
     </SafeAreaView>
@@ -58,6 +57,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
+  },
+  dropdown: {
+    right: 20,
+    position: "absolute",
+    backgroundColor: "gray",
+    top: 50,
+    paddingHorizontal: 10,
   },
 });
 
