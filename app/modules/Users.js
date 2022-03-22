@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
   },
   item: {
     width: "100%",
+    top: 7,
   },
   upperTag: {
     alignSelf: "flex-start",

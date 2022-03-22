@@ -64,6 +64,7 @@ const Login = (props) => {
             style={styles.input}
             autoCorrect={false}
             autoCapitalize={"none"}
+            autoFocus
           />
           <TextInput
             placeholderTextColor="gray"
@@ -108,15 +109,13 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-    flexDirection: "column",
   },
   logo: {
-    flex: 1,
+    flex: 0.5,
     alignItems: "center",
-    justifyContent: "space-evenly",
+    top: 47,
   },
   container: {
-    flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
   },

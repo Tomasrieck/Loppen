@@ -5,7 +5,7 @@ import {
   useColorScheme,
   View,
   Image,
-  ActivityIndicator,
+  KeyboardAvoidingView,
   TextInput,
   TouchableOpacity,
   Text,
@@ -50,13 +50,14 @@ const UploadItem = (props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.content}>
-        <View style={styles.inputField}>
+        <KeyboardAvoidingView style={styles.inputField}>
           <TextInput
             onChangeText={onChangeTitle}
             value={title}
             placeholder="Titel"
             style={[styles.textInput, themeContainerStyleText]}
             maxLength={15}
+            autoFocus
           />
           <TextInput
             onChangeText={onChangeDescription}
@@ -82,7 +83,7 @@ const UploadItem = (props) => {
             style={[styles.textInput, themeContainerStyleText]}
             maxLength={4}
           />
-        </View>
+        </KeyboardAvoidingView>
         <TouchableOpacity style={styles.uploadButton} onPress={UploadItem}>
           <Text style={styles.buttonText}>Upload</Text>
         </TouchableOpacity>
@@ -122,26 +123,17 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     left: 20,
     marginRight: 40,
-    flex: 0.9,
   },
   textInput: {
     fontSize: 40,
     margin: 7,
   },
-  pickButton: {
-    top: 20,
-    alignItems: "center",
-    backgroundColor: "gray",
-    width: 250,
-    paddingVertical: 15,
-    borderRadius: 10,
-  },
   uploadButton: {
-    alignItems: "center",
     backgroundColor: "rgb(82, 183, 255)",
     paddingHorizontal: 50,
     paddingVertical: 15,
     borderRadius: 10,
+    top: 37,
   },
   buttonText: {
     fontSize: 30,
