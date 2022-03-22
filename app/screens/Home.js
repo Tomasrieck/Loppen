@@ -15,6 +15,7 @@ import * as fb from "../../backend/firebaseConfig";
 import TopBar from "../modules/TopBar.js";
 import BottomBar from "../modules/BottomBar.js";
 import Users from "../modules/Users.js";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -83,7 +84,9 @@ const Home = (props) => {
             <ActivityIndicator></ActivityIndicator>
           ) : (
             <>
-              <Users userId={nearbyUsers[0]} />
+              <TouchableOpacity onPress={{}}>
+                <Users userId={nearbyUsers[0]} />
+              </TouchableOpacity>
             </>
           )}
           {nearbyUsers.length < 2 ? null : (
@@ -127,7 +130,7 @@ const styles = StyleSheet.create({
   },
   darkTheme: {
     backgroundColor: "black",
-    tintColor: "white",
+    tintColor: "rgb(230,230,230)",
   },
   background: {
     flex: 1,

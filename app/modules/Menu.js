@@ -51,13 +51,13 @@ const styles = StyleSheet.create({
   },
   darkTheme: {
     backgroundColor: "black",
-    tintColor: "white",
+    tintColor: "rgb(230,230,230)",
   },
   lightThemeText: {
     color: "black",
   },
   darkThemeText: {
-    color: "white",
+    color: "rgb(230,230,230)",
   },
   background: {
     flex: 1,

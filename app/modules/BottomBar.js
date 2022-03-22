@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   darkTheme: {
     backgroundColor: "black",
-    tintColor: "white",
+    tintColor: "rgb(230,230,230)",
   },
   icons: {
     width: 35,

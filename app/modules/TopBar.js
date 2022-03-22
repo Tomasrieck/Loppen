@@ -37,25 +37,27 @@ const styles = StyleSheet.create({
   },
   darkTheme: {
     backgroundColor: "black",
-    tintColor: "white",
+    tintColor: "rgb(230,230,230)",
   },
   logo: {
     width: 85,
-    height: 35,
+    height: 28,
     marginLeft: 30,
   },
   icons: {
     width: 35,
-    height: 35,
+    height: 20,
     marginRight: 30,
-    marginTop: 15,
-    marginBottom: 15,
+    bottom: 4,
   },
   bar: {
+    height: 50,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
   },
   dropdown: {
     right: 20,

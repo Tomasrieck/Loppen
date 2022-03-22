@@ -105,13 +105,11 @@ const styles = StyleSheet.create({
     color: "black",
   },
   darkTheme: {
-    color: "white",
+    color: "rgb(230,230,230)",
   },
   content: {
     justifyContent: "center",
     alignItems: "center",
-    borderBottomColor: "gray",
-    borderBottomWidth: 1,
   },
   item: {
     width: "100%",

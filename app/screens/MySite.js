@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   darkTheme: {
     backgroundColor: "black",
-    tintColor: "white",
+    tintColor: "rgb(230,230,230)",
   },
   background: {
     flex: 1,

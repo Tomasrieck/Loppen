@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     color: "black",
   },
   darkTheme: {
-    color: "white",
+    color: "rgb(230,230,230)",
   },
   content: {
     justifyContent: "center",
