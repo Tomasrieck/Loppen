@@ -30,7 +30,6 @@ const Home = (props) => {
     colorScheme === "light" ? styles.lightTheme : styles.darkTheme;
 
   const [refreshing, setRefreshing] = React.useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [userZipCode, setUserZipCode] = useState("");
   const [nearbyUsers, setNearbyUsers] = useState([]);
 
@@ -43,8 +42,7 @@ const Home = (props) => {
     fb.db
       .collection("userInfo")
       .doc(fb.auth.currentUser?.uid)
-      .get()
-      .then((doc) => {
+      .onSnapshot((doc) => {
         setUserZipCode(doc.data().zipCode);
       });
   };
@@ -53,22 +51,23 @@ const Home = (props) => {
     getUserZipCode();
     fb.db
       .collection("userInfo")
-      .where("zipCode", "==", "2200")
+      .where("zipCode", "==", userZipCode)
       .onSnapshot((docs) => {
         docs.forEach((doc) => {
-          setNearbyUsers((arr) => [...arr, doc.data().userId]);
+          if (doc.id != fb.auth.currentUser?.uid) {
+            setNearbyUsers((arr) => [...arr, doc.id]);
+          }
         });
       });
-    counter += 1;
   };
 
   console.log(nearbyUsers);
   console.log(nearbyUsers.length);
-  console.log({ counter });
+  console.log(userZipCode);
 
   useEffect(() => {
     getNearbyUsers();
-  }, [nearbyUsers[nearbyUsers - 1]]);
+  }, [userZipCode]);
 
   return (
     <SafeAreaView style={[styles.background, themeContainerStyle]}>
@@ -87,18 +86,29 @@ const Home = (props) => {
               <Users userId={nearbyUsers[0]} />
             </>
           )}
-          {nearbyUsers.length < 2 ? (
-            <ActivityIndicator></ActivityIndicator>
-          ) : (
+          {nearbyUsers.length < 2 ? null : (
             <>
               <Users userId={nearbyUsers[1]} />
             </>
           )}
-          {nearbyUsers.length < 3 ? (
-            <ActivityIndicator></ActivityIndicator>
-          ) : (
+          {nearbyUsers.length < 3 ? null : (
             <>
               <Users userId={nearbyUsers[2]} />
+            </>
+          )}
+          {nearbyUsers.length < 4 ? null : (
+            <>
+              <Users userId={nearbyUsers[3]} />
+            </>
+          )}
+          {nearbyUsers.length < 5 ? null : (
+            <>
+              <Users userId={nearbyUsers[4]} />
+            </>
+          )}
+          {nearbyUsers.length < 6 ? null : (
+            <>
+              <Users userId={nearbyUsers[5]} />
             </>
           )}
         </ScrollView>

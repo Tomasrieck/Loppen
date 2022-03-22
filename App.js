@@ -6,10 +6,11 @@ import "react-native-gesture-handler";
 
 import Login from "./app/screens/Login";
 import Home from "./app/screens/Home";
-import Create from "./app/screens/Create";
+import ChooseImage from "./app/screens/ChooseImage";
 import Register from "./app/screens/Register";
 import MySite from "./app/screens/MySite";
 import Menu from "./app/modules/Menu";
+import UploadItem from "./app/screens/UploadItem";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +21,8 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="MySite" component={MySite} />
-        <Stack.Screen name="Create" component={Create} />
+        <Stack.Screen name="ChooseImage" component={ChooseImage} />
+        <Stack.Screen name="UploadItem" component={UploadItem} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Menu" component={Menu} />
       </Stack.Navigator>

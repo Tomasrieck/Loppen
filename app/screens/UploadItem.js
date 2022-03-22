@@ -13,100 +13,43 @@ import {
   Text,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import * as ImagePicker from "expo-image-picker";
-import * as Firebase from "firebase";
 
 import * as fb from "../../backend/firebaseConfig";
-import TopBar from "../modules/TopBar";
+import * as ci from "./ChooseImage";
 import BottomBar from "../modules/BottomBar";
 
-const Create = (props) => {
+const UploadItem = (props) => {
   const colorScheme = useColorScheme();
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightTheme : styles.darkTheme;
-  const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [imageUrl, setImageUrl] = useState(undefined);
 
   const [description, onChangeDescription] = React.useState(null);
   const [price, onChangePrice] = React.useState(null);
   const [title, onChangeTitle] = React.useState(null);
   const [zipCode, onChangeZipCode] = React.useState(null);
 
-  useEffect(async () => {
-    if (Platform.OS !== "web") {
-      const { status } = await ImagePicker.requestCameraPermissionsAsync();
-      if (status !== "granted") {
-        alert("Permission denied!");
-      }
-    }
-  }, []);
-
-  const PickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    console.log(result);
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  };
-
-  const UploadImage = async () => {
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function () {
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", image, true);
-      xhr.send(null);
-    });
-
-    const ref = Firebase.storage().ref().child(new Date().toISOString());
-    const snapshot = ref.put(blob);
-
-    snapshot.on(
-      Firebase.storage.TaskEvent.STATE_CHANGED,
-      () => {
-        setUploading(true);
-      },
-      (error) => {
-        setUploading(false);
-        console.log(error);
-        blob.close();
-        return;
-      },
-      () => {
-        snapshot.snapshot.ref.getDownloadURL().then((url) => {
-          setUploading(false);
-          setImageUrl(url);
-          console.log("download url: ", url);
-          blob.close();
-          return url;
-        });
-      }
-    );
+  const UploadItem = async () => {
     fb.db.collection("userItems").add({
       description: description,
       price: price,
       title: title,
       zipCode: zipCode,
-      itemImage: imageUrl,
+      itemImage: ci.theImage,
       userId: fb.auth.currentUser?.uid,
     });
   };
 
   return (
     <SafeAreaView style={[styles.background, themeContainerStyle]}>
-      <TopBar {...props} />
-
+      <View>
+        <TouchableOpacity onPress={() => props.navigation.goBack()}>
+          <Image
+            style={[styles.icon, themeContainerStyle]}
+            source={require("../assets/backIcon.png")}
+          />
+        </TouchableOpacity>
+      </View>
       <View style={styles.content}>
         <View style={styles.inputField}>
           <TextInput
@@ -140,12 +83,9 @@ const Create = (props) => {
             style={styles.textInput}
             maxLength={4}
           />
-          <TouchableOpacity style={styles.pickButton} onPress={PickImage}>
-            <Text style={styles.buttonText}>Vælg billede</Text>
-          </TouchableOpacity>
         </View>
         {!uploading ? (
-          <TouchableOpacity style={styles.uploadButton} onPress={UploadImage}>
+          <TouchableOpacity style={styles.uploadButton} onPress={UploadItem}>
             <Text style={styles.buttonText}>Upload</Text>
           </TouchableOpacity>
         ) : (
@@ -206,6 +146,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "white",
   },
+  icon: {
+    width: 35,
+    height: 35,
+    marginLeft: 15,
+  },
 });
 
-export default Create;
+export default UploadItem;

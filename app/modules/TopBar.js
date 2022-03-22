@@ -13,7 +13,7 @@ const TopBar = (props) => {
     colorScheme === "light" ? styles.lightTheme : styles.darkTheme;
 
   return (
-    <SafeAreaView style={[styles.bar, themeContainerStyle, { top: 0 }]}>
+    <SafeAreaView style={[styles.bar, themeContainerStyle]}>
       <Image
         style={[styles.logo, themeContainerStyle]}
         source={require("../assets/logo.png")}
@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   bar: {
-    flex: 0.1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

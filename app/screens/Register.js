@@ -22,6 +22,7 @@ const Register = (props) => {
   const [fullName, setFullName] = useState(null);
   const [phone, setPhone] = useState(null);
   const [address, setAddress] = useState(null);
+  const [zipCode, setZipCode] = useState(null);
 
   useEffect(() => {
     const unsubscribe = fb.auth.onAuthStateChanged((user) => {
@@ -53,6 +54,9 @@ const Register = (props) => {
             fullName: fullName,
             phone: phone,
             address: address,
+            zipCode: zipCode,
+            userImage:
+              "https://firebasestorage.googleapis.com/v0/b/loppenappen.appspot.com/o/lampIcon.png?alt=media&token=7a9b62ed-f937-4d7c-b68e-3c0624a009cc",
           });
         })
         .catch((error) => alert(error.message));
@@ -65,6 +69,14 @@ const Register = (props) => {
 
   return (
     <SafeAreaView style={[styles.background, themeContainerStyle]}>
+      <View>
+        <TouchableOpacity onPress={() => props.navigation.goBack()}>
+          <Image
+            style={[styles.icon, themeContainerStyle]}
+            source={require("../assets/backIcon.png")}
+          />
+        </TouchableOpacity>
+      </View>
       <View style={styles.logo}>
         <Image
           style={[{ width: 150, height: 70 }, themeContainerStyle]}
@@ -117,6 +129,7 @@ const Register = (props) => {
             onChangeText={(text) => setPhone(text)}
             style={styles.input}
             autoCorrect={false}
+            keyboardType="numeric"
           />
           <TextInput
             placeholderTextColor="gray"
@@ -125,6 +138,15 @@ const Register = (props) => {
             onChangeText={(text) => setAddress(text)}
             style={styles.input}
             autoCorrect={false}
+          />
+          <TextInput
+            placeholderTextColor="gray"
+            placeholder="Zip Code"
+            value={zipCode}
+            onChangeText={(text) => setZipCode(text)}
+            style={styles.input}
+            autoCorrect={false}
+            keyboardType="numeric"
           />
         </View>
 
@@ -208,6 +230,11 @@ const styles = StyleSheet.create({
   fadingText: {
     fontSize: 12,
     color: "red",
+  },
+  icon: {
+    width: 35,
+    height: 35,
+    marginLeft: 15,
   },
 });
 

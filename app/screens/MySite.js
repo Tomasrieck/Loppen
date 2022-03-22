@@ -16,8 +16,6 @@ const MySite = (props) => {
 
   return (
     <SafeAreaView style={[styles.background, themeContainerStyle]}>
-      <TopBar {...props} />
-
       <ScrollView style={styles.scroll}>
         <MyItems userId={fb.auth.currentUser?.uid} />
       </ScrollView>
@@ -42,6 +40,7 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 1,
+    top: 10,
   },
   test: {
     fontSize: 20,

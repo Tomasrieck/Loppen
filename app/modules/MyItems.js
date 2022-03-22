@@ -58,23 +58,41 @@ class MySite extends Component {
             {this.state.userInfo.fullName}
           </Text>
         </View>
-        {this.state.userItems.map((item, index) => (
-          <View style={styles.item} key={index}>
-            <Image
-              style={styles.itemImage}
-              source={{
-                uri: item.itemImage,
-              }}
-            />
-            <View style={styles.underTag}>
-              <Text style={[styles.itemTitle, textTheme]}>{item.title}, </Text>
-              <Text style={[styles.itemDesc, textTheme]}>
-                {item.description}
-              </Text>
-              <Text style={[styles.itemPrice, textTheme]}>{item.price} ,-</Text>
-            </View>
+        {this.state.userItems.length > 0 ? (
+          <>
+            {this.state.userItems.map((item, index) => (
+              <View style={styles.item} key={index}>
+                <Image
+                  style={styles.itemImage}
+                  source={{
+                    uri: item.itemImage,
+                  }}
+                />
+                <View style={styles.underTag}>
+                  <Text style={[styles.itemTitle, textTheme]}>
+                    {item.title},{" "}
+                  </Text>
+                  <Text style={[styles.itemDesc, textTheme]}>
+                    {item.description}
+                  </Text>
+                  <Text style={[styles.itemPrice, textTheme]}>
+                    {item.price} ,-
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </>
+        ) : (
+          <View
+            style={{
+              height: 500,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text>Du har i øjeblikket ingen ting til salg</Text>
           </View>
-        ))}
+        )}
       </View>
     );
   }

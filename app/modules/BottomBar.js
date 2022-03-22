@@ -15,7 +15,7 @@ const BottomBar = (props) => {
   return (
     <SafeAreaView style={[styles.bar, themeContainerStyle, { bottom: 0 }]}>
       <TouchableWithoutFeedback
-        onPress={() => props.navigation.navigate("Create")}
+        onPress={() => props.navigation.navigate("ChooseImage")}
       >
         <Image
           style={[styles.icons, themeContainerStyle]}

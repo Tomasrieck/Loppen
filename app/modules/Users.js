@@ -55,42 +55,46 @@ class Users extends Component {
     }
     return (
       <View style={styles.content}>
-        <View style={styles.item}>
-          <View style={styles.upperTag}>
-            <Image
-              style={styles.userImage}
-              source={{
-                uri: this.state.userInfo.userImage,
-              }}
-            />
-            <Text style={[styles.fullName, textTheme]}>
-              {this.state.userInfo.fullName}
-            </Text>
+        {this.state.userItems.length != 0 && (
+          <View style={styles.item}>
+            <View style={styles.upperTag}>
+              <Image
+                style={styles.userImage}
+                source={{
+                  uri: this.state.userInfo.userImage,
+                }}
+              />
+              <Text style={[styles.fullName, textTheme]}>
+                {this.state.userInfo.fullName}
+              </Text>
+            </View>
+            <Swiper loop={false} height={480} dotColor={"gray"}>
+              <>
+                {this.state.userItems.map((user, index) => (
+                  <View key={index}>
+                    <Image
+                      style={styles.itemImage}
+                      source={{
+                        uri: user.itemImage,
+                      }}
+                    />
+                    <View style={styles.underTag}>
+                      <Text style={[styles.itemTitle, textTheme]}>
+                        {user.title},{" "}
+                      </Text>
+                      <Text style={[styles.itemDesc, textTheme]}>
+                        {user.description}
+                      </Text>
+                      <Text style={[styles.itemPrice, textTheme]}>
+                        {user.price} ,-
+                      </Text>
+                    </View>
+                  </View>
+                ))}
+              </>
+            </Swiper>
           </View>
-          <Swiper loop={false} height={530} dotColor={"gray"}>
-            {this.state.userItems.map((user, index) => (
-              <View key={index}>
-                <Image
-                  style={styles.itemImage}
-                  source={{
-                    uri: user.itemImage,
-                  }}
-                />
-                <View style={styles.underTag}>
-                  <Text style={[styles.itemTitle, textTheme]}>
-                    {user.title},{" "}
-                  </Text>
-                  <Text style={[styles.itemDesc, textTheme]}>
-                    {user.description}
-                  </Text>
-                  <Text style={[styles.itemPrice, textTheme]}>
-                    {user.price} ,-
-                  </Text>
-                </View>
-              </View>
-            ))}
-          </Swiper>
-        </View>
+        )}
       </View>
     );
   }
