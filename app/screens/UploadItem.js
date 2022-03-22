@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
-  Platform,
   useColorScheme,
   View,
-  Button,
   Image,
   ActivityIndicator,
   TextInput,
@@ -22,7 +20,8 @@ const UploadItem = (props) => {
   const colorScheme = useColorScheme();
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightTheme : styles.darkTheme;
-  const [uploading, setUploading] = useState(false);
+  const themeContainerStyleText =
+    colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
 
   const [description, onChangeDescription] = React.useState(null);
   const [price, onChangePrice] = React.useState(null);
@@ -56,14 +55,14 @@ const UploadItem = (props) => {
             onChangeText={onChangeTitle}
             value={title}
             placeholder="Titel"
-            style={styles.textInput}
+            style={[styles.textInput, themeContainerStyleText]}
             maxLength={15}
           />
           <TextInput
             onChangeText={onChangeDescription}
             value={description}
             placeholder="Beskrivelse"
-            style={styles.textInput}
+            style={[styles.textInput, themeContainerStyleText]}
             numberOfLines={3}
             maxLength={60}
           />
@@ -72,7 +71,7 @@ const UploadItem = (props) => {
             value={price}
             placeholder="Pris"
             keyboardType="numeric"
-            style={styles.textInput}
+            style={[styles.textInput, themeContainerStyleText]}
             maxLength={3}
           />
           <TextInput
@@ -80,17 +79,13 @@ const UploadItem = (props) => {
             value={zipCode}
             placeholder="Postnummer"
             keyboardType="numeric"
-            style={styles.textInput}
+            style={[styles.textInput, themeContainerStyleText]}
             maxLength={4}
           />
         </View>
-        {!uploading ? (
-          <TouchableOpacity style={styles.uploadButton} onPress={UploadItem}>
-            <Text style={styles.buttonText}>Upload</Text>
-          </TouchableOpacity>
-        ) : (
-          <ActivityIndicator size="large" color="black" />
-        )}
+        <TouchableOpacity style={styles.uploadButton} onPress={UploadItem}>
+          <Text style={styles.buttonText}>Upload</Text>
+        </TouchableOpacity>
       </View>
 
       <BottomBar {...props} />
@@ -107,6 +102,12 @@ const styles = StyleSheet.create({
   darkTheme: {
     backgroundColor: "black",
     tintColor: "white",
+  },
+  lightThemeText: {
+    color: "black",
+  },
+  darkThemeText: {
+    color: "white",
   },
   background: {
     flex: 1,

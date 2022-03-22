@@ -83,11 +83,11 @@ const ChooseImage = (props) => {
           theImage = url;
           console.log("download url: ", url);
           blob.close();
+          props.navigation.navigate("UploadItem");
           return url;
         });
       }
     );
-    props.navigation.navigate("UploadItem");
   };
 
   return (
@@ -102,7 +102,7 @@ const ChooseImage = (props) => {
             <Text style={styles.buttonText}>Næste</Text>
           </TouchableOpacity>
         ) : (
-          <ActivityIndicator size="large" color="black" />
+          <ActivityIndicator size="large" color="rgb(82, 183, 255)" />
         )}
       </View>
 

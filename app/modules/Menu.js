@@ -40,7 +40,6 @@ const Menu = (props) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <BottomBar {...props} />
     </SafeAreaView>
   );
 };
