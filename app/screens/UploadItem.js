@@ -28,13 +28,18 @@ const UploadItem = (props) => {
   const [zipCode, onChangeZipCode] = React.useState(null);
 
   const UploadItem = async () => {
-    fb.db.collection("userItems").add({
-      price: price,
-      title: title,
-      zipCode: zipCode,
-      itemImage: ci.theImage,
-      userId: fb.auth.currentUser?.uid,
-    });
+    fb.db
+      .collection("userItems")
+      .add({
+        price: price,
+        title: title,
+        zipCode: zipCode,
+        itemImage: ci.theImage,
+        userId: fb.auth.currentUser?.uid,
+      })
+      .then(() => {
+        props.navigation.navigate("Home");
+      });
   };
 
   return (
