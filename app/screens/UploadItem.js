@@ -23,14 +23,12 @@ const UploadItem = (props) => {
   const themeContainerStyleText =
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
 
-  const [description, onChangeDescription] = React.useState(null);
   const [price, onChangePrice] = React.useState(null);
   const [title, onChangeTitle] = React.useState(null);
   const [zipCode, onChangeZipCode] = React.useState(null);
 
   const UploadItem = async () => {
     fb.db.collection("userItems").add({
-      description: description,
       price: price,
       title: title,
       zipCode: zipCode,
@@ -56,16 +54,8 @@ const UploadItem = (props) => {
             value={title}
             placeholder="Titel"
             style={[styles.textInput, themeContainerStyleText]}
-            maxLength={15}
+            maxLength={25}
             autoFocus
-          />
-          <TextInput
-            onChangeText={onChangeDescription}
-            value={description}
-            placeholder="Beskrivelse"
-            style={[styles.textInput, themeContainerStyleText]}
-            numberOfLines={3}
-            maxLength={60}
           />
           <TextInput
             onChangeText={onChangePrice}

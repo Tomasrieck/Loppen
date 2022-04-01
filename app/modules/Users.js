@@ -24,7 +24,7 @@ class Users extends Component {
     super(props);
     this.subscriber = fb.db
       .collection("userInfo")
-      .doc(props.userId)
+      .doc(props.userId.toString())
       .onSnapshot((doc) => {
         this.setState({
           userInfo: {
@@ -35,7 +35,7 @@ class Users extends Component {
       });
     this.subscriber = fb.db
       .collection("userItems")
-      .where("userId", "==", props.userId)
+      .where("userId", "==", props.userId.toString())
       .onSnapshot((docs) => {
         let userItems = [];
         docs.forEach((doc) => {
@@ -80,10 +80,7 @@ class Users extends Component {
                     />
                     <View style={styles.underTag}>
                       <Text style={[styles.itemTitle, textTheme]}>
-                        {user.title},{" "}
-                      </Text>
-                      <Text style={[styles.itemDesc, textTheme]}>
-                        {user.description}
+                        {user.title},
                       </Text>
                       <Text style={[styles.itemPrice, textTheme]}>
                         {user.price} ,-
@@ -113,7 +110,7 @@ const styles = StyleSheet.create({
   },
   item: {
     width: "100%",
-    top: 7,
+    marginTop: 7,
   },
   upperTag: {
     alignSelf: "flex-start",
@@ -150,11 +147,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "gray",
   },
-
   itemPrice: {
-    padding: 5,
-    position: "absolute",
-    right: 0,
+    marginLeft: 7,
     fontSize: 16,
   },
 });

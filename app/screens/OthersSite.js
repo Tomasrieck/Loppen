@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   ScrollView,
   useColorScheme,
-  TouchableOpacity,
-  Text,
   RefreshControl,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -20,7 +18,7 @@ const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
-const MySite = (props) => {
+const OthersSite = (props) => {
   const [refreshing, setRefreshing] = React.useState(false);
 
   const colorScheme = useColorScheme();
@@ -41,13 +39,7 @@ const MySite = (props) => {
         }
       >
         <ScrollView style={styles.scroll}>
-          <TouchableOpacity
-            style={styles.editButton}
-            onPress={() => props.navigation.navigate("EditProfile")}
-          >
-            <Text style={styles.editText}>Rediger profil</Text>
-          </TouchableOpacity>
-          <MyItems userId={fb.auth.currentUser?.uid} />
+          <MyItems userId={props.route.params} />
         </ScrollView>
       </ScrollView>
       <BottomBar {...props} />
@@ -87,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MySite;
+export default OthersSite;

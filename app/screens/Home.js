@@ -7,6 +7,8 @@ import {
   RefreshControl,
   ActivityIndicator,
   Text,
+  TouchableWithoutFeedback,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -15,15 +17,10 @@ import * as fb from "../../backend/firebaseConfig";
 import TopBar from "../modules/TopBar.js";
 import BottomBar from "../modules/BottomBar.js";
 import Users from "../modules/Users.js";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
-
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
-let counter = 0;
 
 const Home = (props) => {
   const colorScheme = useColorScheme();
@@ -83,42 +80,75 @@ const Home = (props) => {
           {nearbyUsers.length < 1 ? (
             <ActivityIndicator></ActivityIndicator>
           ) : (
-            <>
-              <TouchableOpacity onPress={{}}>
+            <TouchableWithoutFeedback
+              onPress={() =>
+                props.navigation.navigate("OthersSite", nearbyUsers[0])
+              }
+            >
+              <View>
                 <Users userId={nearbyUsers[0]} />
-              </TouchableOpacity>
-            </>
+              </View>
+            </TouchableWithoutFeedback>
           )}
           {nearbyUsers.length < 2 ? null : (
-            <>
-              <Users userId={nearbyUsers[1]} />
-            </>
+            <TouchableWithoutFeedback
+              onPress={() =>
+                props.navigation.navigate("OthersSite", nearbyUsers[1])
+              }
+            >
+              <View>
+                <Users userId={nearbyUsers[1]} />
+              </View>
+            </TouchableWithoutFeedback>
           )}
           {nearbyUsers.length < 3 ? null : (
-            <>
-              <Users userId={nearbyUsers[2]} />
-            </>
+            <TouchableWithoutFeedback
+              onPress={() =>
+                props.navigation.navigate("OthersSite", nearbyUsers[2])
+              }
+            >
+              <View>
+                <Users userId={nearbyUsers[2]} />
+              </View>
+            </TouchableWithoutFeedback>
           )}
           {nearbyUsers.length < 4 ? null : (
-            <>
-              <Users userId={nearbyUsers[3]} />
-            </>
+            <TouchableWithoutFeedback
+              onPress={() =>
+                props.navigation.navigate("OthersSite", nearbyUsers[3])
+              }
+            >
+              <View>
+                <Users userId={nearbyUsers[3]} />
+              </View>
+            </TouchableWithoutFeedback>
           )}
           {nearbyUsers.length < 5 ? null : (
-            <>
-              <Users userId={nearbyUsers[4]} />
-            </>
+            <TouchableWithoutFeedback
+              onPress={() =>
+                props.navigation.navigate("OthersSite", nearbyUsers[4])
+              }
+            >
+              <View>
+                <Users userId={nearbyUsers[4]} />
+              </View>
+            </TouchableWithoutFeedback>
           )}
           {nearbyUsers.length < 6 ? null : (
-            <>
-              <Users userId={nearbyUsers[5]} />
-            </>
+            <TouchableWithoutFeedback
+              onPress={() =>
+                props.navigation.navigate("OthersSite", nearbyUsers[5])
+              }
+            >
+              <View>
+                <Users userId={nearbyUsers[5]} />
+              </View>
+            </TouchableWithoutFeedback>
           )}
         </ScrollView>
-
-        <BottomBar {...props} />
-        <StatusBar style="auto" />
       </ScrollView>
+      <BottomBar {...props} />
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 };

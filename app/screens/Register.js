@@ -56,7 +56,7 @@ const Register = (props) => {
             address: address,
             zipCode: zipCode,
             userImage:
-              "https://firebasestorage.googleapis.com/v0/b/loppenappen.appspot.com/o/lampIcon.png?alt=media&token=7a9b62ed-f937-4d7c-b68e-3c0624a009cc",
+              "https://firebasestorage.googleapis.com/v0/b/loppenappen.appspot.com/o/lampIcon.png?alt=media&token=f3beadba-4854-4b08-89d4-cad7b45fa149",
           });
         })
         .catch((error) => alert(error.message));
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   container: {
-    flex: 1.6,
+    flex: 2,
     justifyContent: "flex-start",
     alignItems: "center",
   },
@@ -203,11 +203,10 @@ const styles = StyleSheet.create({
   },
   input: {
     borderColor: "gray",
-    backgroundColor: "white",
+    backgroundColor: "rgb(230,230,230)",
     paddingHorizontal: 15,
     paddingVertical: 10,
-    borderRadius: 10,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     marginTop: 10,
   },
   buttonContainer: {
@@ -215,7 +214,7 @@ const styles = StyleSheet.create({
     top: 10,
   },
   button: {
-    marginTop: 10,
+    marginTop: 17,
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 15,

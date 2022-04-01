@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Image, Text, Appearance } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  Appearance,
+  TouchableOpacity,
+} from "react-native";
 
 import * as fb from "../../backend/firebaseConfig";
 
@@ -16,7 +23,7 @@ class MySite extends Component {
     super(props);
     this.subscriber = fb.db
       .collection("userItems")
-      .where("userId", "==", fb.auth.currentUser?.uid)
+      .where("userId", "==", this.props.userId)
       .onSnapshot((docs) => {
         let userItems = [];
         docs.forEach((doc) => {
@@ -27,12 +34,15 @@ class MySite extends Component {
       });
     this.subscriber = fb.db
       .collection("userInfo")
-      .doc(fb.auth.currentUser?.uid)
+      .doc(this.props.userId)
       .onSnapshot((doc) => {
         this.setState({
           userInfo: {
             fullName: doc.data().fullName,
             userImage: doc.data().userImage,
+            phone: doc.data().phone,
+            address: doc.data().address,
+            zipCode: doc.data().zipCode,
           },
         });
       });
@@ -48,15 +58,37 @@ class MySite extends Component {
     return (
       <View style={styles.content}>
         <View style={styles.upperTag}>
-          <Image
-            style={styles.userImage}
-            source={{
-              uri: this.state.userInfo.userImage,
-            }}
-          />
-          <Text style={[styles.fullName, textTheme]}>
-            {this.state.userInfo.fullName}
-          </Text>
+          <View style={styles.info}>
+            <Image
+              style={styles.userImage}
+              source={{
+                uri: this.state.userInfo.userImage,
+              }}
+            />
+            <Text style={[styles.fullName, textTheme]}>
+              {this.state.userInfo.fullName}
+            </Text>
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <View style={styles.userInfo}>
+              <Text style={styles.userText}>Telefon: </Text>
+              <Text style={styles.userText}> {this.state.userInfo.phone}</Text>
+            </View>
+            <View style={styles.userInfo}>
+              <Text style={styles.userText}>Postnr.: </Text>
+              <Text style={styles.userText}>
+                {" "}
+                {this.state.userInfo.zipCode}
+              </Text>
+            </View>
+            <View style={styles.userInfo}>
+              <Text style={styles.userText}>Adresse: </Text>
+              <Text style={styles.userText}>
+                {" "}
+                {this.state.userInfo.address}
+              </Text>
+            </View>
+          </View>
         </View>
         {this.state.userItems.length > 0 ? (
           <>
@@ -71,9 +103,6 @@ class MySite extends Component {
                 <View style={styles.underTag}>
                   <Text style={[styles.itemTitle, textTheme]}>
                     {item.title},{" "}
-                  </Text>
-                  <Text style={[styles.itemDesc, textTheme]}>
-                    {item.description}
                   </Text>
                   <Text style={[styles.itemPrice, textTheme]}>
                     {item.price} ,-
@@ -114,14 +143,25 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   upperTag: {
-    alignSelf: "flex-start",
-    flexDirection: "row",
-    alignItems: "center",
-    paddingLeft: 7,
+    flexDirection: "column",
     paddingBottom: 15,
     borderBottomColor: "gray",
     borderBottomWidth: 1,
     width: "100%",
+  },
+  info: {
+    paddingLeft: 7,
+    alignSelf: "flex-start",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  userInfo: {
+    flexDirection: "row",
+    marginTop: 5,
+    marginLeft: 10,
+  },
+  userText: {
+    color: "gray",
   },
   userImage: {
     width: "15%",
@@ -154,7 +194,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "gray",
   },
-
   itemPrice: {
     padding: 5,
     position: "absolute",

@@ -11,6 +11,9 @@ import Register from "./app/screens/Register";
 import MySite from "./app/screens/MySite";
 import Menu from "./app/modules/Menu";
 import UploadItem from "./app/screens/UploadItem";
+import Settings from "./app/screens/Settings";
+import EditProfile from "./app/screens/EditProfile";
+import OthersSite from "./app/screens/OthersSite";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,10 +24,13 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="MySite" component={MySite} />
+        <Stack.Screen name="OthersSite" component={OthersSite} />
         <Stack.Screen name="ChooseImage" component={ChooseImage} />
         <Stack.Screen name="UploadItem" component={UploadItem} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Menu" component={Menu} />
+        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const Menu = (props) => {
+const Settings = (props) => {
   const colorScheme = useColorScheme();
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightTheme : styles.darkTheme;
@@ -28,24 +28,7 @@ const Menu = (props) => {
           />
         </TouchableOpacity>
       </View>
-      <View style={styles.content}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => props.navigation.navigate("Settings")}
-        >
-          <Text style={[styles.buttonText, themeContainerStyleText]}>
-            Indstillinger
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => DevSettings.reload()}
-        >
-          <Text style={[styles.buttonText, themeContainerStyleText]}>
-            Log ud
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <View style={styles.content}></View>
     </SafeAreaView>
   );
 };
@@ -92,4 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Menu;
+export default Settings;
